@@ -2,11 +2,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Factor {
-	//example: x3 -2x2 + -4x - 8
+	//example: x3 - 2x2 + -4x - 8
 
+	String binomialFactorPattern = "^([a-zA-Z])(\\d+)\\s+([+-])\\s+(-?)(\\d+)(\\1)(\\d+)$";
+	String originalFactorPattern = "^([a-zA-Z])(\\d+)\\s+([+-])\\s+(-?)(\\d+)(\\1)(\\d+)\\s+([+-])\\s+(-?)(\\d+)(\\1)\\s+([+-])\\s+(-?)(\\d)$";
     public Factor(String text)    
     {
-    	String pattern = "^([a-zA-Z])(\\d+) ([+-]) (-?)(\\d+)(\\1)(\\d+) ([+-]) (-?)(\\d+)(\\1) ([+-]) (-?)(\\d)$";
+    	String pattern = originalFactorPattern;
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(text);
 	    if (m.find())
@@ -17,7 +19,7 @@ public class Factor {
 	    }
 	    else 
 	    {
-	      	pattern = "^([a-zA-Z])(\\d+) ([+-]) (-?)(\\d+)(\\1)(\\d+)$";
+	      	pattern = binomialFactorPattern;
 	    	r = Pattern.compile(pattern);
 	    	m = r.matcher(text);
 	    	if(m.find())
@@ -29,7 +31,7 @@ public class Factor {
     }
     public void bimomialFactor(String text)
     {
-    	String pattern = "^([a-zA-Z])(\\d+) ([+-]) (-?)(\\d+)(\\1)(\\d+)$";
+    	String pattern = binomialFactorPattern;
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(text);
 	    if (m.find())
@@ -49,7 +51,7 @@ public class Factor {
     }
     public void originalFactor(String text)
     {
-    	String pattern = "^([a-zA-Z])(\\d+) ([+-]) (-?)(\\d+)(\\1)(\\d+) ([+-]) (-?)(\\d+)(\\1) ([+-]) (-?)(\\d)$";
+    	String pattern = originalFactorPattern;
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(text);
 	    if (m.find())
@@ -75,6 +77,11 @@ public class Factor {
 	    }
     }
     public static void main(String[] args) {
-		new Factor("x2 - -2x2");
+    	String example0 = "x3 - 2x2 + -4x - 8";
+    	String example1 = "x2 + -2x2";
+		System.out.println("first word:");
+		new Factor(example0);
+		System.out.println("second word:");
+		new Factor(example1);
 	}
 }
